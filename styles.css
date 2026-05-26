@@ -128,16 +128,11 @@ button { font: inherit; }
   background: var(--coral);
   color: #fff;
   flex: 0 0 auto;
-}
-
-.brand-mark svg {
-  width: 21px;
-  height: 21px;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
+  font-family: Lora, Georgia, serif;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1;
 }
 
 .brand-mark.small {
@@ -145,6 +140,7 @@ button { font: inherit; }
   height: 48px;
   background: #fff0eb;
   color: var(--coral);
+  font-size: 24px;
 }
 
 .icon-button,
@@ -381,8 +377,7 @@ button { font: inherit; }
   align-items: center;
   width: 100%;
   justify-content: center;
-  /* Kein gap — Buttons und Wert haben feste Breiten, kein Spielraum nötig */
-  gap: 0;
+  gap: 8px;
 }
 
 .tracker-stepper button {
