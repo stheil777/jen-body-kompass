@@ -581,6 +581,9 @@ function renderRhythmSummary() {
 
 function renderProfile() {
   document.querySelector("#weightInput").value = profile.weight;
+  document.querySelector("#weightDisplay").textContent = profile.weight;
+  document.querySelector("#weightMinus").disabled = profile.weight <= 40;
+  document.querySelector("#weightPlus").disabled = profile.weight >= 180;
   document.querySelector("#genderInput").value = profile.gender;
   document.querySelector("#activityInput").value = String(profile.activity);
   document.querySelector("#goalInput").value = profile.goal;
@@ -763,6 +766,24 @@ document.querySelector("#waterMinus").addEventListener("click", () => {
   const current = log?.water || 0;
   setLog(today(), { water: Math.max(current - 1, 0) });
   renderQuickTrackers();
+});
+
+// ── Event: Weight Stepper ─────────────────────────────────────────────────────
+
+document.querySelector("#weightMinus").addEventListener("click", () => {
+  profile.weight = Math.max(40, profile.weight - 1);
+  document.querySelector("#weightInput").value = profile.weight;
+  document.querySelector("#weightDisplay").textContent = profile.weight;
+  document.querySelector("#weightMinus").disabled = profile.weight <= 40;
+  document.querySelector("#weightPlus").disabled = profile.weight >= 180;
+});
+
+document.querySelector("#weightPlus").addEventListener("click", () => {
+  profile.weight = Math.min(180, profile.weight + 1);
+  document.querySelector("#weightInput").value = profile.weight;
+  document.querySelector("#weightDisplay").textContent = profile.weight;
+  document.querySelector("#weightMinus").disabled = profile.weight <= 40;
+  document.querySelector("#weightPlus").disabled = profile.weight >= 180;
 });
 
 // ── Event: Window resize (re-draw chart) ──────────────────────────────────────

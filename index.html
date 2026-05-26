@@ -49,34 +49,42 @@
             <button id="closeProfile" type="button" aria-label="Setup schließen">×</button>
           </div>
           <form id="profileForm" class="setup-grid">
-            <label>
-              Körpergewicht
-              <span><input id="weightInput" type="number" min="40" max="180" step="1" /> kg</span>
-            </label>
-            <label>
-              Geschlecht
+            <div class="setup-card">
+              <span class="setup-card-label">Körpergewicht</span>
+              <div class="weight-stepper">
+                <button type="button" id="weightMinus" aria-label="Gewicht verringern">−</button>
+                <span class="weight-display">
+                  <span id="weightDisplay">72</span>
+                  <span class="weight-unit">kg</span>
+                </span>
+                <button type="button" id="weightPlus" aria-label="Gewicht erhöhen">+</button>
+              </div>
+              <input id="weightInput" type="hidden" value="72" />
+            </div>
+            <div class="setup-card">
+              <span class="setup-card-label">Geschlecht</span>
               <select id="genderInput">
                 <option value="female">weiblich</option>
                 <option value="male">männlich</option>
               </select>
-            </label>
-            <label>
-              Aktivität
+            </div>
+            <div class="setup-card">
+              <span class="setup-card-label">Aktivität</span>
               <select id="activityInput">
                 <option value="1.2">ruhiger Alltag</option>
                 <option value="1.45">regelmäßig aktiv</option>
                 <option value="1.7">sehr aktiv</option>
               </select>
-            </label>
-            <label>
-              Zielrichtung
+            </div>
+            <div class="setup-card">
+              <span class="setup-card-label">Zielrichtung</span>
               <select id="goalInput">
                 <option value="maintain">halten & strukturieren</option>
                 <option value="fatloss">leichter werden</option>
                 <option value="strength">kräftiger werden</option>
               </select>
-            </label>
-            <button type="submit">Werte übernehmen</button>
+            </div>
+            <button type="submit" class="setup-submit">Werte übernehmen</button>
           </form>
         </section>
 
@@ -193,7 +201,7 @@
         </nav>
 
         <section class="section-head view-section" data-view="basket">
-          <h1>Wochenkorb</h1>
+          <h1>Journal</h1>
         </section>
 
         <details class="custom-food view-section" data-view="basket">
@@ -223,11 +231,11 @@
               Kalorien
               <input id="customCalories" type="number" min="0" step="1" placeholder="pro 100g / Einheit" required />
             </label>
-            <button type="submit">In Wochenkorb übernehmen</button>
+            <button type="submit">Ins Journal übernehmen</button>
           </form>
         </details>
 
-        <section id="foodList" class="food-list view-section" data-view="basket" aria-label="Lebensmittel im Wochenkorb"></section>
+        <section id="foodList" class="food-list view-section" data-view="basket" aria-label="Lebensmittel im Journal"></section>
 
         <!-- RHYTHMUS VIEW -->
         <section class="rhythm-panel view-section" data-view="rhythmus" aria-label="Dein Rhythmus">
@@ -262,7 +270,7 @@
         <!-- BOTTOM NAV -->
         <footer class="bottom-nav" aria-label="Hauptnavigation">
           <button class="active" type="button" data-nav="today">Heute</button>
-          <button type="button" data-nav="basket">Wochenkorb</button>
+          <button type="button" data-nav="basket">Journal</button>
           <button class="add-main" type="button" data-nav="basket" aria-label="Lebensmittel hinzufügen">+</button>
           <button type="button" data-nav="rhythmus">Rhythmus</button>
           <button type="button" data-nav="settings">Setup</button>

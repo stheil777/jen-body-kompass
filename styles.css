@@ -256,50 +256,115 @@ button { font: inherit; }
   line-height: 1.5;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
 .setup-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.setup-grid label {
-  display: grid;
-  gap: 5px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.setup-grid label:first-child { grid-column: 1 / -1; }
-
-.setup-grid label span {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
+/* ── 4-Felder-Karten ── */
+.setup-card {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-}
-
-.setup-grid input,
-.setup-grid select,
-.setup-grid button {
-  min-height: 42px;
+  padding: 14px 14px 16px;
+  background: #fff;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  background: #fff;
+}
+
+.setup-card-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.setup-card select {
+  width: 100%;
+  min-height: 38px;
+  border: none;
+  background: transparent;
   color: var(--text);
   font-size: 15px;
-}
-
-.setup-grid input,
-.setup-grid select { width: 100%; padding: 8px 10px; }
-
-.setup-grid button {
-  grid-column: 1 / -1;
-  background: var(--coral);
-  border-color: var(--coral);
-  color: #fff;
+  font-weight: 500;
+  padding: 0;
   cursor: pointer;
-  font-weight: 600;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  padding-right: 20px;
 }
+
+/* ── Weight Stepper ── */
+.weight-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: 1;
+}
+
+.weight-stepper button {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--coral);
+  color: var(--coral);
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  transition: background 120ms, color 120ms, opacity 120ms;
+}
+.weight-stepper button:active { background: var(--coral); color: #fff; }
+.weight-stepper button:disabled { opacity: 0.2; cursor: default; }
+
+.weight-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+.weight-display #weightDisplay {
+  font-size: 28px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  line-height: 1;
+}
+.weight-unit {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* ── Submit Button ── */
+.setup-submit {
+  grid-column: 1 / -1;
+  min-height: 48px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--coral);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 120ms;
+}
+.setup-submit:active { opacity: 0.85; }
 
 /* ── Quick Trackers ──────────────────────────────────────────────────── */
 
@@ -954,19 +1019,19 @@ h2 { font-size: 20px; font-weight: 560; }
 
 .quick-counter {
   position: fixed;
-  left: 50%;
-  bottom: calc(76px + env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  bottom: calc(72px + env(safe-area-inset-bottom));
   z-index: 19;
-  width: min(100%, 520px);
-  transform: translateX(-50%);
+  width: 100%;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
   min-height: 32px;
-  padding: 5px 14px;
+  padding: 5px max(16px, calc((100% - 520px) / 2));
   background: var(--coral);
-  box-shadow: 0 -8px 22px rgba(240, 107, 93, 0.18);
+  box-shadow: 0 -4px 16px rgba(240, 107, 93, 0.15);
 }
 
 .quick-counter strong {
@@ -984,16 +1049,16 @@ h2 { font-size: 20px; font-weight: 560; }
   align-items: center;
   gap: 4px;
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(100%, 520px);
+  left: 0;
+  right: 0;
   bottom: 0;
   z-index: 20;
+  width: 100%;
   min-height: 72px;
-  padding: 6px 12px max(10px, env(safe-area-inset-bottom));
-  border-top: 1px solid var(--line);
+  padding: 6px max(12px, calc((100% - 520px) / 2)) max(10px, env(safe-area-inset-bottom));
   background: #fff;
-  box-shadow: 0 -12px 32px rgba(52, 40, 32, 0.07);
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -4px 16px rgba(52, 40, 32, 0.06);
 }
 
 .bottom-nav button {
@@ -1338,5 +1403,5 @@ h2 { font-size: 20px; font-weight: 560; }
   .suggestion-list { grid-template-columns: 1fr; }
 
   .custom-food-grid,
-  .setup-grid { grid-template-columns: 1fr; }
+  .setup-grid { grid-template-columns: 1fr 1fr; }
 }
