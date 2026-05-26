@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Protein Kompass</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="phone" aria-label="Body Kompass">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img">
+                <path d="M5.7 18.2c4.5-.1 9-3.7 11.2-10.6 1.2 6.7-2.5 12.1-8.2 12.5" />
+                <path d="M6.3 18.3c2.2-3.2 5-5.7 8.4-7.7" />
+              </svg>
+            </span>
+            <span><strong>JEN</strong><em>Body Kompass</em></span>
+          </div>
+          <button class="icon-button" type="button" aria-label="Einstellungen">
+            <svg class="settings-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 8.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Z" />
+              <path d="M19.4 13.5v-3l-2.2-.5a6.5 6.5 0 0 0-.8-1.8l1.2-1.9-2.1-2.1-1.9 1.2a6.5 6.5 0 0 0-1.8-.8L11.3 2h-3l-.5 2.6a6.5 6.5 0 0 0-1.8.8L4.1 4.2 2 6.3l1.2 1.9a6.5 6.5 0 0 0-.8 1.8L0 10.5v3l2.4.5c.2.7.5 1.3.8 1.9L2 17.8l2.1 2.1 1.9-1.2c.6.3 1.2.6 1.8.8l.5 2.5h3l.5-2.5c.7-.2 1.3-.5 1.8-.8l1.9 1.2 2.1-2.1-1.2-1.9c.3-.6.6-1.2.8-1.9l2.2-.5Z" />
+            </svg>
+            <span class="close-icon" aria-hidden="true">×</span>
+          </button>
+        </header>
+
+        <!-- DATE ROW -->
+        <div class="date-row">
+          <span id="todayLabel">Heute</span>
+          <button id="resetDay" type="button">Tag leeren</button>
+        </div>
+
+        <!-- hidden profile anchor — no visible bar in today view -->
+        <div id="profileAnchor" hidden></div>
+
+        <!-- SETUP PANEL -->
+        <section id="setupPanel" class="setup-panel view-section" data-view="settings" aria-label="Persönliche Orientierung">
+          <div class="setup-title-row">
+            <div>
+              <span class="setup-label">Setup</span>
+              <h1>Protein-Ziel anpassen</h1>
+              <p>Grobe Orientierung für den Alltag. Die Werte kannst du jederzeit ändern.</p>
+            </div>
+            <button id="closeProfile" type="button" aria-label="Setup schließen">×</button>
+          </div>
+          <form id="profileForm" class="setup-grid">
+            <label>
+              Körpergewicht
+              <span><input id="weightInput" type="number" min="40" max="180" step="1" /> kg</span>
+            </label>
+            <label>
+              Geschlecht
+              <select id="genderInput">
+                <option value="female">weiblich</option>
+                <option value="male">männlich</option>
+              </select>
+            </label>
+            <label>
+              Aktivität
+              <select id="activityInput">
+                <option value="1.2">ruhiger Alltag</option>
+                <option value="1.45">regelmäßig aktiv</option>
+                <option value="1.7">sehr aktiv</option>
+              </select>
+            </label>
+            <label>
+              Zielrichtung
+              <select id="goalInput">
+                <option value="maintain">halten & strukturieren</option>
+                <option value="fatloss">leichter werden</option>
+                <option value="strength">kräftiger werden</option>
+              </select>
+            </label>
+            <button type="submit">Werte übernehmen</button>
+          </form>
+        </section>
+
+        <!-- HEUTE VIEW -->
+
+        <!-- Quick Trackers: Energie / Schlaf / Wasser -->
+        <section class="quick-trackers view-section" data-view="today" aria-label="Tages-Check-in">
+          <div class="quick-trackers-head">
+            <span class="section-label">Check-in</span>
+            <span class="check-in-status" id="checkInStatus"></span>
+          </div>
+          <div class="tracker-row">
+
+            <!-- Energie -->
+            <div class="tracker-card" id="energyCard">
+              <div class="tracker-icon energy-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M13 2 4.5 13.5H12L11 22l8.5-11.5H12L13 2z"/>
+                </svg>
+              </div>
+              <span class="tracker-label">Energie</span>
+              <div class="tracker-stepper energy-stepper">
+                <button type="button" id="energyMinus" aria-label="Energie verringern">−</button>
+                <span id="energyValue" class="stepper-value" aria-live="polite">–</span>
+                <button type="button" id="energyPlus" aria-label="Energie erhöhen">+</button>
+              </div>
+              <span class="stepper-sublabel energy-sublabel" id="energyLabel" aria-live="polite"></span>
+            </div>
+
+            <!-- Schlaf -->
+            <div class="tracker-card" id="sleepCard">
+              <div class="tracker-icon sleep-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              </div>
+              <span class="tracker-label">Schlaf</span>
+              <div class="tracker-stepper sleep-stepper">
+                <button type="button" id="sleepMinus" aria-label="Schlafstunden verringern">−</button>
+                <span id="sleepValue" class="stepper-value" aria-live="polite">–</span>
+                <button type="button" id="sleepPlus" aria-label="Schlafstunden erhöhen">+</button>
+              </div>
+              <div class="sleep-quality" id="sleepQuality" role="group" aria-label="Schlafqualität">
+                <button type="button" data-val="1">Unruhig</button>
+                <button type="button" data-val="2">Okay</button>
+                <button type="button" data-val="3">Gut</button>
+              </div>
+            </div>
+
+            <!-- Wasser -->
+            <div class="tracker-card" id="waterCard">
+              <div class="tracker-icon water-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2C6 9.5 4 13 4 16a8 8 0 0 0 16 0c0-3-2-6.5-8-14z"/>
+                </svg>
+              </div>
+              <span class="tracker-label">Wasser</span>
+              <div class="tracker-stepper water-stepper">
+                <button type="button" id="waterMinus" aria-label="Glas entfernen">−</button>
+                <span id="waterCount" class="stepper-value" aria-live="polite">0</span>
+                <button type="button" id="waterPlus" aria-label="Glas hinzufügen">+</button>
+              </div>
+              <div class="water-glasses" id="waterGlasses" aria-hidden="true"></div>
+              <span class="stepper-sublabel water-sublabel">1 Glas = 250 ml</span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- PROTEIN SUMMARY -->
+        <section class="summary-panel view-section" data-view="today" aria-label="Protein & Kalorien">
+          <div class="metric-card protein-card">
+            <div class="metric-top">
+              <span class="label">Eiweiss</span>
+              <strong><span id="proteinTotal">0</span> / <span id="proteinTarget">105</span> g</strong>
+            </div>
+            <div class="mini-bar" aria-hidden="true"><span id="proteinBar"></span></div>
+            <small><span id="proteinLeft">105</span> g offen</small>
+          </div>
+          <div class="metric-card">
+            <div class="metric-top">
+              <span class="label">Kalorien</span>
+              <strong><span id="calorieTotal">0</span> kcal</strong>
+            </div>
+            <div class="mini-bar" aria-hidden="true"><span id="calorieBar"></span></div>
+            <small>Ziel ca. <span id="calorieTarget">1.900</span> kcal · <span id="calorieLeft">1.900</span> kcal offen</small>
+          </div>
+        </section>
+
+        <!-- DIARY -->
+        <section class="diary-panel view-section" data-view="today" aria-label="Tagebuch">
+          <div class="section-head diary-head">
+            <h1>Heute eingetragen</h1>
+            <span id="entryCount">0 Einträge</span>
+          </div>
+          <div id="diaryList" class="diary-list"></div>
+        </section>
+
+        <!-- SUGGESTIONS -->
+        <details class="suggestions view-section" data-view="today">
+          <summary class="suggestion-title" aria-label="Heute noch sinnvoll, ein- oder ausklappen">
+            <span class="suggestion-toggle-icon" aria-hidden="true"></span>
+            <h2>Heute noch sinnvoll</h2>
+          </summary>
+          <div id="suggestionList" class="suggestion-list"></div>
+        </details>
+
+        <!-- WOCHENKORB VIEW -->
+        <nav class="meal-tabs view-section" data-view="basket" aria-label="Mahlzeit wählen">
+          <button class="active" type="button" data-meal="Frühstück">Frühstück</button>
+          <button type="button" data-meal="Mittag">Mittag</button>
+          <button type="button" data-meal="Abend">Abend</button>
+          <button type="button" data-meal="Snacks">Snacks</button>
+        </nav>
+
+        <section class="section-head view-section" data-view="basket">
+          <h1>Wochenkorb</h1>
+        </section>
+
+        <details class="custom-food view-section" data-view="basket">
+          <summary>Produkt hinzufügen</summary>
+          <form id="customFoodForm" class="custom-food-grid">
+            <label>
+              Name
+              <input id="customName" type="text" placeholder="z.B. griechischer Joghurt" required />
+            </label>
+            <label>
+              Einheit
+              <select id="customUnit">
+                <option value="g">g</option>
+                <option value="Stück">Stück</option>
+                <option value="Portion">Portion</option>
+              </select>
+            </label>
+            <label>
+              Standardmenge
+              <input id="customAmount" type="number" min="1" value="100" required />
+            </label>
+            <label>
+              Eiweiss
+              <input id="customProtein" type="number" min="0" step="0.1" placeholder="pro 100g / Einheit" required />
+            </label>
+            <label>
+              Kalorien
+              <input id="customCalories" type="number" min="0" step="1" placeholder="pro 100g / Einheit" required />
+            </label>
+            <button type="submit">In Wochenkorb übernehmen</button>
+          </form>
+        </details>
+
+        <section id="foodList" class="food-list view-section" data-view="basket" aria-label="Lebensmittel im Wochenkorb"></section>
+
+        <!-- RHYTHMUS VIEW -->
+        <section class="rhythm-panel view-section" data-view="rhythmus" aria-label="Dein Rhythmus">
+          <div class="rhythm-head">
+            <div>
+              <span class="section-label">Woche</span>
+              <h1>Dein Rhythmus</h1>
+              <p class="rhythm-subtitle">Wenn deine Linien ähnlich verlaufen — das ist dein Muster.</p>
+            </div>
+          </div>
+
+          <div class="rhythm-legend">
+            <span><i class="legend-dot energy-dot"></i>Energie</span>
+            <span><i class="legend-dot sleep-dot"></i>Schlaf</span>
+            <span><i class="legend-dot protein-dot"></i>Protein</span>
+            <span><i class="legend-dot water-dot"></i>Wasser</span>
+          </div>
+
+          <div class="rhythm-chart-wrap">
+            <canvas id="rhythmChart" aria-label="Wochenrhythmus-Graph"></canvas>
+          </div>
+
+          <div class="rhythm-week-summary" id="rhythmWeekSummary"></div>
+        </section>
+
+        <!-- QUICK COUNTER -->
+        <aside class="quick-counter" aria-label="Tageszähler">
+          <strong>Heute <span id="quickProtein">0</span> / <span id="quickProteinTarget">105</span> g Eiweiss</strong>
+          <strong>Kalorien <span id="quickCalories">0</span> kcal</strong>
+        </aside>
+
+        <!-- BOTTOM NAV -->
+        <footer class="bottom-nav" aria-label="Hauptnavigation">
+          <button class="active" type="button" data-nav="today">Heute</button>
+          <button type="button" data-nav="basket">Wochenkorb</button>
+          <button class="add-main" type="button" data-nav="basket" aria-label="Lebensmittel hinzufügen">+</button>
+          <button type="button" data-nav="rhythmus">Rhythmus</button>
+          <button type="button" data-nav="settings">Setup</button>
+        </footer>
+      </section>
+
+      <!-- SIDE PANEL -->
+      <aside class="side-panel" aria-label="Wochenübersicht">
+        <div class="side-head">
+          <h2>Wochenübersicht</h2>
+        </div>
+        <div class="legend">
+          <span><i class="dot protein"></i>Eiweiss (g)</span>
+          <span><i class="dot kcal"></i>Kalorien</span>
+        </div>
+        <div id="weekRows" class="week-rows"></div>
+        <div class="average-card">
+          <div>
+            <span>Wochenschnitt</span>
+            <strong id="proteinAverage">0 g</strong>
+            <small>von 105 g</small>
+          </div>
+          <div>
+            <span>Ø Kalorien</span>
+            <strong id="calorieAverage">0 kcal</strong>
+            <small>von ca. 1.900 kcal</small>
+          </div>
+        </div>
+        <div class="note-card">
+          <span class="brand-mark small" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M5.7 18.2c4.5-.1 9-3.7 11.2-10.6 1.2 6.7-2.5 12.1-8.2 12.5" />
+              <path d="M6.3 18.3c2.2-3.2 5-5.7 8.4-7.7" />
+            </svg>
+          </span>
+          <p><strong>Orientierung, kein Druck</strong>Die App gibt sanfte Hinweise für den Alltag. Sie ersetzt keine individuelle medizinische oder ernährungsfachliche Beratung.</p>
+        </div>
+      </aside>
+    </main>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
